@@ -8,10 +8,22 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="{% static "css/style.css" %}">
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+    </script>
     <script>
         function use_ip(json) {
-            alert("Your IP address is: " + json.ip);
-        }
+        $.ajax({
+        url: {% url 'get_weather_from_ip' %},
+        data: {"ip": json.ip},
+        dataType: 'json',
+        success: function (data) {
+        document.getElementById("weatherdata").innerHTML = data.weather_data 
+            }
+        });
+    }
     </script>
     <script src="https://api.ipify.org?format=jsonp&callback=use_ip"></script>
 
